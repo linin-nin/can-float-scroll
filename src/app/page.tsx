@@ -1,10 +1,13 @@
+import Carousel from "@/components/Carousel";
 import Hero from "@/components/hero/Hero";
-import Image from "next/image";
+import SkyDive from "@/components/SkyDive";
 
 export default function Home() {
   return (
     <>
       <Hero/>
+      <SkyDive/>
+      <Carousel/>
     </>
   );
 }

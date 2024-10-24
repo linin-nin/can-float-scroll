@@ -1,8 +1,15 @@
 "use client"
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Canvas } from "@react-three/fiber"
-import { View } from '@react-three/drei';
+import { View } from '@react-three/drei'
+// import { Perf } from "r3f-perf"
+import dynamic from 'next/dynamic';
+
+const Loader = dynamic(
+    () => import("@react-three/drei").then((mod) => mod.Loader),
+    { ssr: false }
+)
 
 const ViewCanvas = () => {
     return (
@@ -24,8 +31,12 @@ const ViewCanvas = () => {
                     fov: 30,
                 }}
             >
-                <View.Port/>
+                <Suspense fallback={null}>
+                    <View.Port/>
+                </Suspense>
+                {/* <Perf/> */}
             </Canvas>
+            <Loader/>
         </>
     );
 }

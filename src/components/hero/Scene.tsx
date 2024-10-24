@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useRef } from 'react';
 import FloadingCan from '../FloadingCan';
 import { Environment, OrbitControls } from '@react-three/drei';

@@ -10,11 +10,18 @@ import TextSplitter from '../TextSplitter'
 import Button from '../Button'
 import Scene from './Scene'
 import Bubbles from '../Bubbles'
+import { useStore } from '@/hook/useStore'
+import { useMediaQuery } from '@/hook/useMediaQuery'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 const Hero = () => {
 
+  const ready = useStore((state) => state.ready)
+  const isDesktop = useMediaQuery("(min-width: 768px)", true)
+
   useGSAP(() => {
+
+    if(!ready && isDesktop) return ;
 
     const introTL = gsap.timeline();
     introTL
@@ -74,16 +81,17 @@ const Hero = () => {
       y: 20,
       opacity: 0,
     });
-  })
+  }, { dependencies: [ ready, isDesktop]})
 
 
   return (
     <Bounded className='hero opacity-0'>
-
-      <View className='hero-scene pointer-events-none sticky top-0 z-50 -mt-[100vh] hidden h-screen w-screen md:block'>
-        <Scene/>
-        <Bubbles count={300} speed={2} repeat={true}/>
-      </View>
+      { isDesktop && (
+        <View className='hero-scene pointer-events-none sticky top-0 z-50 -mt-[100vh] hidden h-screen w-screen md:block'>
+          <Scene/>
+          <Bubbles count={300} speed={2} repeat={true}/>
+        </View>
+      )}
 
       {/* small screen */}
       <div className='grid'>
@@ -104,7 +112,7 @@ const Hero = () => {
               </div>
               <Button
                 buttonLink="/"
-                buttonText="Button need to replace later"
+                buttonText="get start"
                 className="hero-button mt-12"
               />
             </div>
